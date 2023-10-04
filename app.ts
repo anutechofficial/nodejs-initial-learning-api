@@ -11,7 +11,7 @@ import S3Upload from "./routes/upload";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+console.log('Anurag');
 app.use(express.json());
 app.use('/auth', authRoutes,swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use('/post',blogRouter,swaggerUi.serve,swaggerUi.setup(swaggerFile));
