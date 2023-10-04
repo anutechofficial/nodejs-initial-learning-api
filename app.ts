@@ -16,6 +16,8 @@ app.use(express.json());
 app.use('/auth', authRoutes,swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use('/post',blogRouter,swaggerUi.serve,swaggerUi.setup(swaggerFile));
 app.use('/upload', S3Upload ,swaggerUi.serve, swaggerUi.setup(swaggerFile) );
+app.use('/upload', S3Upload ,swaggerUi.serve, swaggerUi.setup(swaggerFile) );
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/databaseUser')
