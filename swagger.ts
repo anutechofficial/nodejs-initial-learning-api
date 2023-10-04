@@ -16,6 +16,6 @@ const options = {
 const outputFile = './swagger-output.json';
 const endpointsFiles = ['./app.ts']
 // const swaggerSpec = swaggerJsdoc(options);
-''
+
 export default swaggerAutogen(outputFile, endpointsFiles, options);
 

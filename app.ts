@@ -6,17 +6,18 @@ import blogRouter from "./routes/blogPost";
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from './swagger-output.json'; 
 import S3Upload from "./routes/upload";
+import down from "./routes/downl";
 // import multer from 'multer';
 
 
 const app = express();
-const port = process.env.PORT || 3000;
-console.log('Anurag');
+const port = process.env.PORT;
+
 app.use(express.json());
-app.use('/auth', authRoutes,swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/auth', authRoutes,swaggerUi.serve, swaggerUi.setup(swaggerFile));                    
 app.use('/post',blogRouter,swaggerUi.serve,swaggerUi.setup(swaggerFile));
 app.use('/upload', S3Upload ,swaggerUi.serve, swaggerUi.setup(swaggerFile) );
-app.use('/upload', S3Upload ,swaggerUi.serve, swaggerUi.setup(swaggerFile) );
+app.use('/file', down,swaggerUi.serve, swaggerUi.setup(swaggerFile) );    
 
 
 

@@ -6,7 +6,7 @@ import express, { Request, Response } from 'express';
 require('dotenv').config();
 
 const router = express.Router();
-const BUCKET_NAME = "v3nus-stage1-staging";
+const BUCKET_NAME:any= process.env.BUCKET_NAME;
 
 const S3Bucket = new AWS.S3({
     accessKeyId:process.env.ACCESS_KEY_ID,
@@ -48,3 +48,4 @@ router.post('/file', upload.single('file'), async (req: Request, res: Response) 
 });
 
 export default router;
+// export default S3Bucket;
