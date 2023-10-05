@@ -8,7 +8,7 @@ const router=express.Router();
 
 router.post("/blog", async (req:Request, res:Response)=>{
     try{
-            const { username,blogtitle,blog,date } = req.body;
+            const { username,blogtitle,blog } = req.body;
             
             const isUser:any = await User.findOne({username});
             if(isUser){
@@ -17,7 +17,8 @@ router.post("/blog", async (req:Request, res:Response)=>{
                 const isToken:any =await Token.findOne({_id});
                 // const {token}= isToken;
                 // console.log("User Existing Token ",token);
-            if(isToken){
+                if(isToken){
+                    const date =new Date();
                 await Blog.create({username,blogtitle,blog,date})
                 .then((result)=>{
                     res.status(201).json({ message: 'Blog Created successfully !',result});
@@ -27,10 +28,10 @@ router.post("/blog", async (req:Request, res:Response)=>{
                 });
 
                 // console.log("Blog details ",blogDetails);
-            }
-            else{
+                }
+                else{
                 res.status(400).json({message:'You have to singin first to post Blog!'})
-            }
+                }
             }
             else{
                 res.status(400).json({message:'User not found You have to signup first to Post Blog!'})

@@ -128,9 +128,6 @@
                 },
                 "blog": {
                   "example": "any"
-                },
-                "date": {
-                  "example": "any"
                 }
               }
             }

@@ -35,15 +35,23 @@ router.post('/file', upload.single('file'), async (req: Request, res: Response) 
             // ContentDisposition: 'inline',
         };
 
-        console.log("Parameter :",params);
+        // console.log("Parameter :",params.ContentType);
         const result = await S3Bucket.upload(params).promise();
-        console.log("Result of file upload : ", result);
+        // console.log("Result of file upload : ", result);
 
-        res.status(200).json({ message: 'File uploaded successfully', result });
+        const {Location, Key,}= result;
+        const fileType=params.ContentType;
+
+        const uploadDetails={
+            fileLocation:Location,
+            fileName:Key,
+            fileType:fileType
+        }
+        res.status(200).json({ message: 'File uploaded successfully', uploadDetails });
     } catch (error) {
         // Handle any errors that occur during the upload
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        // console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
     }
 });
 
