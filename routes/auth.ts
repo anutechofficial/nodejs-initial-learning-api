@@ -35,7 +35,7 @@ router.post('/signup', async (req: Request, res: Response) => {
            _id:_id,
         }
         console.log(username)
-        let token = jwt.sign(payload, renSecretKey, { expiresIn: '1h' });
+        let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
        
         let userToken = await Token.create({ _id, token, renSecretKey, });
         
@@ -89,14 +89,14 @@ router.post("/signin", async (req:Request,res:Response)=>{
                 _id:_id
             }
 
-            let token = jwt.sign(payload, renSecretKey, { expiresIn: '1h' });
+            let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
             if(password===enteredPassword){
                 const existingToken = await Token.findOne({_id});
                 if(existingToken){
                     res.status(200).json({message:"You are already signed in !",existingToken})
                 }
                 else{
-                Token.create({_id,token  })
+                Token.create({_id,token,renSecretKey})
                 .then(function(){
                     res.status(201).json({ message: 'User signin successfully', token }); 
                  })

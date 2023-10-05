@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerFile from './swagger-output.json'; 
 import S3Upload from "./routes/upload";
 import down from "./routes/downl";
+// import msg from "./routes/chat";
 // import multer from 'multer';
 
 
@@ -17,7 +18,9 @@ app.use(express.json());
 app.use('/auth', authRoutes,swaggerUi.serve, swaggerUi.setup(swaggerFile));                    
 app.use('/post',blogRouter,swaggerUi.serve,swaggerUi.setup(swaggerFile));
 app.use('/upload', S3Upload ,swaggerUi.serve, swaggerUi.setup(swaggerFile) );
-app.use('/file', down,swaggerUi.serve, swaggerUi.setup(swaggerFile) );    
+app.use('/file', down,swaggerUi.serve, swaggerUi.setup(swaggerFile) ); 
+// app.use('/message', msg,swaggerUi.serve, swaggerUi.setup(swaggerFile) );    
+
 
 
 

@@ -4,6 +4,7 @@ import * as AWS from 'aws-sdk';
 import multer from 'multer';
 import express, { Request, Response } from 'express';
 require('dotenv').config();
+import uploadedModel from '../models/uploaded.model';
 
 const router = express.Router();
 const BUCKET_NAME:any= process.env.BUCKET_NAME;
@@ -20,7 +21,7 @@ const upload = multer({ storage });
 router.post('/file', upload.single('file'), async (req: Request, res: Response) => {
     try {
         const file: Express.Multer.File | undefined = req.file;
-        console.log(file);
+        // console.log(file);
         
         if (!file) {
             return res.status(400).json({ message: 'No file uploaded' });
@@ -38,15 +39,20 @@ router.post('/file', upload.single('file'), async (req: Request, res: Response) 
         // console.log("Parameter :",params.ContentType);
         const result = await S3Bucket.upload(params).promise();
         // console.log("Result of file upload : ", result);
-
+        
         const {Location, Key,}= result;
         const fileType=params.ContentType;
 
-        const uploadDetails={
-            fileLocation:Location,
-            fileName:Key,
-            fileType:fileType
-        }
+        const uploadDetails = {
+            fileName: Key,
+            fileType: fileType,
+            fileUrl: Location, // Update this property to match your schema
+          };
+          
+
+        const uploaddeMongo=await uploadedModel.create(uploadDetails);
+        // console.log(uploaddeMongo);
+
         res.status(200).json({ message: 'File uploaded successfully', uploadDetails });
     } catch (error) {
         // Handle any errors that occur during the upload
