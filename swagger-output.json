@@ -179,7 +179,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "url": {
+                "username": {
+                  "example": "any"
+                },
+                "blogtitle": {
+                  "example": "any"
+                },
+                "blog": {
                   "example": "any"
                 }
               }

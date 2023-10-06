@@ -9,7 +9,7 @@ import uploadedModel from '../models/uploaded.model';
 const router = express.Router();
 const BUCKET_NAME:any= process.env.BUCKET_NAME;
 
-const S3Bucket = new AWS.S3({
+export const S3Bucket = new AWS.S3({
     accessKeyId:process.env.ACCESS_KEY_ID,
     secretAccessKey:process.env.SECRET_ACCESS_KEY
 });
@@ -50,7 +50,7 @@ router.post('/file', upload.single('file'), async (req: Request, res: Response) 
           };
           
 
-        const uploaddeMongo=await uploadedModel.create(uploadDetails);
+       const uploaddeMongo=await uploadedModel.create(uploadDetails);
         // console.log(uploaddeMongo);
 
         res.status(200).json({ message: 'File uploaded successfully', uploadDetails });
@@ -62,4 +62,3 @@ router.post('/file', upload.single('file'), async (req: Request, res: Response) 
 });
 
 export default router;
-// export default S3Bucket;

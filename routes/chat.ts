@@ -13,6 +13,7 @@ app.get('/chat', (req,res)=>{
 
 io.on('connection',(socket)=>{
     console.log('a user in connected!');
+    socket.emit("hello");
 });
 
 app.listen(3000,);
