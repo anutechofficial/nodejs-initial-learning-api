@@ -5,8 +5,7 @@ import http from 'http';
 const server =http.createServer(app);
 import {Server} from "socket.io";
 const io=new Server(server);
-import User from "../models/user.model";
-import Token from "../models/tokens.model";
+import jwt from "jsonwebtoken";
 
 
 const port =4000;
@@ -16,42 +15,95 @@ app.get('/chats', (req,res)=>{
     
 });
 
-io.on('connection', async (socket) => {
+io.use( async (socket, next) => {
   try{
-
-      const username = socket.handshake.headers.username;
-      const password=socket.handshake.headers.password;
-      const userDetails= await User.findOne({username});
-      
-  //Have to implement authantication here then have to emit message 
-  // console.log(userDetails);
-
-      if(userDetails){
-        const {_id}=userDetails;
-        const token= await Token.findOne({_id});
-        if(token){
-          await User.create({socketId:socket.id});
-          socket.on('chat message', (msg) => {
-          io.emit('chat message', msg);
-          console.log(msg);
-          });
-          console.log(`${username} connected`);
-        }
+    // console.log(socket);
+      const token = socket.handshake.headers.authorization;
+ 
+      if(!token){
+        return next(new Error('Authentication error'));
+        
       }
-      else{
-
-      }
+      const decoded = jwt.verify(token, 'Anurag');
+        socket.data=decoded;
+        console.log(socket.data.username);
+        return next();
   }
   catch{
-
-
-  }
-    
+    return "Internal server error!";
+  } 
   });
 
+  io.on('connection',  (socket)=>{
+    const {username}=socket.data;
+
+    console.log(`User ${username} connected!`);
+
+     socket.on('message', (msg)=>{
+        socket.emit(msg);
+      console.log(`User ${username} send : ${msg}`);
+    })
+  });
 
 server.listen(port,()=>{
     console.log(`HTTP Server is running on port ${port}`);
 });
 
 export default router;
+
+// import * as socketio from 'socket.io';
+// import * as http from 'http';
+
+
+
+// import * as jwt from 'jsonwebtoken';
+// import { Server } from 'socket.io';
+// import * as http from 'http';
+
+// const server = http.createServer((req, res) => {
+//   // Handle HTTP requests if needed
+// });
+
+// const io = new Server(server);
+
+
+// io.use(async (socket, next) => {
+//   try {
+//     // Extract the token from the 'Authorization' header
+//     const token = socket.handshake.headers.authorization;
+
+//     if (!token) {
+//       // If no token is provided, reject the connection
+//       return next(new Error('Authentication error'));
+//     }
+
+//     // Verify the token
+//     const decoded = jwt.verify(token, 'your-secret-key'); // Replace with your secret key
+
+//     // Attach user information to the socket object
+//     socket.user = decoded;
+
+//     // If verification succeeds, allow the connection
+//     return next();
+//   } catch (error) {
+//     // If verification fails, reject the connection
+//     return next(new Error('Authentication error'));
+//   }
+// });
+
+// io.on('connection', (socket) => {
+//   // At this point, the user is authenticated and their information is available in socket.user
+//   const { username } = socket.user;
+
+//   console.log(`User ${username} connected`);
+
+//   // Handle WebSocket events
+//   socket.on('message', (message) => {
+//     console.log(`Received from ${username}: ${message}`);
+//     // Handle the message as needed
+//   });
+// });
+
+// server.listen(4000, () => {
+//   console.log('WebSocket server is listening on port 4000');
+// });

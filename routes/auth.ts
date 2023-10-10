@@ -1,14 +1,17 @@
 import express, { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 import User from '../models/user.model';
 import Token from "../models/tokens.model";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 
 
 const router = express.Router();
+// const sec=process.env.SECRET_KEY;
 
-const renSecretKey = crypto.randomBytes(32).toString("hex");
+const renSecretKey = "Anurag";
 
 
 router.post('/signup', async (req: Request, res: Response) => {
@@ -33,13 +36,15 @@ router.post('/signup', async (req: Request, res: Response) => {
         // let user:any= await newUser.save();
         let payload ={
            _id:_id,
+           username:username,
         }
-        console.log(username)
+        // console.log(username)
+
         let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
        
-        let userToken = await Token.create({ _id, token, renSecretKey, });
+        let userToken = await Token.create({ _id, username, token, renSecretKey, });
         
-        res.status(201).json({ message: 'User registered successfully', });
+        res.status(201).json({ message: 'User registered successfully',userToken });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
@@ -86,7 +91,8 @@ router.post("/signin", async (req:Request,res:Response)=>{
         if (existingUser) {
             let {_id,password,}=existingUser;
             let payload={
-                _id:_id
+                _id:_id,
+                username:username,
             }
 
             let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
@@ -96,7 +102,7 @@ router.post("/signin", async (req:Request,res:Response)=>{
                     res.status(200).json({message:"You are already signed in !",existingToken})
                 }
                 else{
-                Token.create({_id,token,renSecretKey})
+                Token.create({_id,username,token,renSecretKey})
                 .then(function(){
                     res.status(201).json({ message: 'User signin successfully', token }); 
                  })
