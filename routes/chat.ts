@@ -39,7 +39,7 @@ io.on('connection', async (socket) => {
             {
             const {socketId}=targetUser;
             const targetSocketId=socketId as string;
-            console.log(`Target User ${username} socket ID:` , socketId);
+            console.log(`Target User ${username} socket ID:` , targetSocketId);
 
             socket.to(targetSocketId).emit('message', msg.message);
                console.log(`User send : ${msg.message}`);
