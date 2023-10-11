@@ -6,6 +6,7 @@ const tokenSchema = new Schema({
   userId: String,
   username: String,
   token:String,
+  socketId:String,
   renSecretKey:String,
 });
 

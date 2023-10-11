@@ -6,7 +6,7 @@ const server =http.createServer(app);
 import {Server} from "socket.io";
 const io=new Server(server);
 import jwt from "jsonwebtoken";
-import User from '../models/user.model';
+import Tokens from '../models/tokens.model';
 
 
 const port =4000;
@@ -30,27 +30,28 @@ io.on('connection', async (socket) => {
 
           const socketId=socket.id;
         
-          await User.findOneAndUpdate({username},{socketId:socketId});
-
+          await Tokens.findOneAndUpdate({username},{socketId:socketId});
+        // }
         socket.on('message', async (msg)=>{
             const username=msg.username;
-            const targetUser = await User.findOne({username});
+            const targetUser = await Tokens.findOne({username});
             if(targetUser)
             {
-            const {socketId,username}=targetUser;
+            const {socketId}=targetUser;
+            const targetSocketId=socketId as string;
             console.log(`Target User ${username} socket ID:` , socketId);
 
-            socket.to(socketId).emit('message', msg.message);
+            socket.to(targetSocketId).emit('message', msg.message);
                console.log(`User send : ${msg.message}`);
             }
             else{
               console.log("Target user not found !")
             }
             });
-        }
-  catch{
-    return "Internal server error!";
-  } 
+      }
+catch{
+     return "Internal server error!";
+     } 
   });
       server.listen(port,()=>{
           console.log(`HTTP Server is running on port ${port}`);
