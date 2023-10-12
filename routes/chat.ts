@@ -9,9 +9,11 @@ import jwt from "jsonwebtoken";
 import Tokens from '../models/tokens.model';
 import chatListModel from '../models/chatList.model';
 import chatsModel from '../models/chats.model';
+require('dotenv').config();
 
 
-const port =4000;
+const port =process.env.SOCKET_PORT;
+const secretKey=process.env.SECRET_KEY as string;
 let user1 :string;
 
 let user2 :string;
@@ -27,7 +29,7 @@ io.on('connection', async (socket) => {
         return (new Error('Authentication error')); 
         }
         // else{
-          const decoded = jwt.verify(token, 'Anurag');
+          const decoded = jwt.verify(token, secretKey);
           socket.data=decoded;
           const {username}=socket.data; 
           console.log(`${username} connected`);
@@ -58,11 +60,11 @@ io.on('connection', async (socket) => {
               
               console.log('msgemmited if blocks runs!!!!!!!!!');
               const chatListResult1= await chatListModel.findOne({$or:[{user1:user1,user2:user2},{user1:user2,user2:user1}]});
-              // const chatListResult2=await chatListModel.findOne({user1:user2,user2:user1});
-                if (chatListResult1 ){
+             
+                if (chatListResult1){
                   const{_id}=chatListResult1;
                   await chatsModel.create({content:msg.message,senderUsername:user1,receiverUsername:user2,connectionId:_id});
-                  return 'chat list already exist';
+                  // return 'chat list already exist';
                 }
                 else{
                   console.log('else blocks runs!!!')
