@@ -11,7 +11,7 @@ dotenv.config();
 const router = express.Router();
 // const sec=process.env.SECRET_KEY;
 
-const renSecretKey = "Anurag";
+const renSecretKey = process.env.SECRET_KEY as string;
 
 
 router.post('/signup', async (req: Request, res: Response) => {
@@ -42,9 +42,13 @@ router.post('/signup', async (req: Request, res: Response) => {
 
         let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
        
-        let userToken = await Token.create({ _id, username, token, renSecretKey, });
+        let userToken = await Token.create({ _id, username, token, });
+        let userDetails={
+            username:userToken.username,
+            token:userToken.token,
+        }
         
-        res.status(201).json({ message: 'User registered successfully',userToken });
+        res.status(201).json({ message: 'User registered successfully',userDetails});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
@@ -102,7 +106,7 @@ router.post("/signin", async (req:Request,res:Response)=>{
                     res.status(200).json({message:"You are already signed in !",existingToken})
                 }
                 else{
-                Token.create({_id,username,token,renSecretKey})
+                Token.create({_id,username,token})
                 .then(function(){
                     res.status(201).json({ message: 'User signin successfully', token }); 
                  })
