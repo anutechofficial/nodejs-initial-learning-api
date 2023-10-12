@@ -7,10 +7,14 @@ import {Server} from "socket.io";
 const io=new Server(server);
 import jwt from "jsonwebtoken";
 import Tokens from '../models/tokens.model';
+import chatListModel from '../models/chatList.model';
+import chatsModel from '../models/chats.model';
 
 
 const port =4000;
+let user1 :string;
 
+let user2 :string;
 app.get('/chats', (req,res)=>{
     res.sendFile(__dirname+"/index.html")
     
@@ -25,7 +29,7 @@ io.on('connection', async (socket) => {
         // else{
           const decoded = jwt.verify(token, 'Anurag');
           socket.data=decoded;
-          const {username}=socket.data;
+          const {username}=socket.data; 
           console.log(`${username} connected`);
 
           const socketId=socket.id;
@@ -34,20 +38,46 @@ io.on('connection', async (socket) => {
         // }
         socket.on('message', async (msg)=>{
             const username=msg.username;
-            const targetUser = await Tokens.findOne({username});
-            if(targetUser)
-            {
-            const {socketId}=targetUser;
-            const targetSocketId=socketId as string;
-            console.log(`Target User ${username} socket ID:` , targetSocketId);
+            user1=socket.data.username;
 
-            socket.to(targetSocketId).emit('message', msg.message);
-               console.log(`User send : ${msg.message}`);
+            console.log("user1 :",user1);
+            user2=username;
+            console.log("user2 :",user2);
+
+            const targetUser = await Tokens.findOne({username});
+          if(targetUser)
+          {
+              const {socketId}=targetUser;
+              const targetSocketId=socketId as string;
+              console.log(`Target User ${username} socket ID:`, targetSocketId);
+
+              const msgEmmited= socket.to(targetSocketId).emit('message', msg.message);
+              // console.log(typeof msgEmmited);
+            if(msgEmmited)
+            {
+              
+              console.log('msgemmited if blocks runs!!!!!!!!!');
+              const chatListResult1= await chatListModel.findOne({$or:[{user1:user1,user2:user2},{user1:user2,user2:user1}]});
+              // const chatListResult2=await chatListModel.findOne({user1:user2,user2:user1});
+                if (chatListResult1 ){
+                  const{_id}=chatListResult1;
+                  await chatsModel.create({content:msg.message,senderUsername:user1,receiverUsername:user2,connectionId:_id});
+                  return 'chat list already exist';
+                }
+                else{
+                  console.log('else blocks runs!!!')
+                  const chatlistCreatedRes= await chatListModel.create({user1,user2});
+                  console.log(chatlistCreatedRes);
+                  const{_id}=chatlistCreatedRes;
+                  await chatsModel.create({content:msg.message,senderUsername:user1,receiverUsername:user2,connectionId:_id});
+                }
+            }
+               console.log(`${user1} send message : ${msg.message}`);
             }
             else{
               console.log("Target user not found !")
             }
-            });
+        });
       }
 catch{
      return "Internal server error!";
