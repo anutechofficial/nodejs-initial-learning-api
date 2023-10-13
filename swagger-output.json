@@ -149,13 +149,6 @@
     "/upload/file": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "file",
-            "in": "formData",
-              "type": "file"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -195,6 +188,88 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/message/chats": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/payment/createCustomer": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/payment/addCard": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customer_id": {
+                  "example": "any"
+                },
+                "card_Name": {
+                  "example": "any"
+                },
+                "card_ExpYear": {
+                  "example": "any"
+                },
+                "card_ExpMonth": {
+                  "example": "any"
+                },
+                "card_Number": {
+                  "example": "any"
+                },
+                "card_CVC": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

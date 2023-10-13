@@ -10,7 +10,7 @@ router.post("/blog", async (req:Request, res:Response)=>{
     try{
             const { username,blogtitle,blog } = req.body;
             
-            const isUser:any = await User.findOne({username});
+            const isUser = await User.findOne({username});
             if(isUser){
                 const {_id }= isUser;
                 console.log("User ID ",_id);

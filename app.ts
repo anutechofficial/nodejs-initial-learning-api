@@ -8,6 +8,7 @@ import swaggerFile from './swagger-output.json';
 import S3Upload from "./routes/upload";
 import down from "./routes/downl";
 import Chat from "./routes/chat";
+import payment from './routes/stripe';
 // import msg from "./routes/chat";
 // import multer from 'multer';
 
@@ -21,6 +22,7 @@ app.use('/post', blogRouter);
 app.use('/upload', S3Upload);
 app.use('/file',down); 
 app.use('/message', Chat);
+app.use('/payment',payment);
 // app.use('/message', msg,swaggerUi.serve, swaggerUi.setup(swaggerFile) );    
 
 mongoose.connect('mongodb://127.0.0.1:27017/databaseUser')

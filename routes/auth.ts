@@ -55,7 +55,6 @@ router.post('/signup', async (req: Request, res: Response) => {
     }
 });
 
-// Add a login route here...
 router.post("/signout", async (req:Request,res:Response)=>{
     try{
         const { username } = req.body;
@@ -129,4 +128,5 @@ router.post("/signin", async (req:Request,res:Response)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 export default router;
