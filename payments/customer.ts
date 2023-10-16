@@ -4,7 +4,7 @@ import { config } from "dotenv";
 // import { Request, Response } from 'aws-sdk';
 config();
 const secretKey=process.env.STRIPE_SECRET_KEY as string;
-const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
+export const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 export const createCustomer = async (req:Request, res:Response)=>{
     try{
@@ -21,33 +21,12 @@ export const createCustomer = async (req:Request, res:Response)=>{
 
 export const addNewCard = async(req:Request,res:Response)=>{
     try {
-        const {
-            customer_id,
-            // card_Name,
-            // card_ExpYear,
-            // card_ExpMonth,
-            // card_Number,
-            // card_CVC,
-
-        } = req.body;
-
-        // const card_token = await stripe.tokens.create({
-        //     card:{
-        //         name: card_Name,
-        //         number: '4242424242424242',
-        //         exp_year: card_ExpYear,
-        //         exp_month: card_ExpMonth,
-        //         cvc: card_CVC
-        //     }
-        // });
-        // const card = await stripe.customers.createSource(customer_id, {
-        //     source: `${card_token.id}`
-        // });
+     
         const card = await stripe.customers.createSource(
-            customer_id,
-            {source: 'tok_amex'}
+            req.body.customer_id,
+            {source: 'tok_mastercard'}
           );
-        res.status(200).send({ card: card.id });
+        res.status(200).send({ card:card.id });
     } catch (error:any) {
         res.status(400).send({success:false,msg:error.message});
     }
@@ -67,3 +46,61 @@ export const createCharges= async (req:Request, res:Response)=>{
         res.status(400).send({success:false, msg: error.message})
     }     
 }
+
+export const listScourse = async( req:Request,res:Response)=>{
+    try {
+        const cards= await stripe.customers.listSources(
+             req.body.customer_id
+           );
+          res.status(200).send(cards);
+    } catch (error) {
+        res.status(500).send('Somthing went worng!');
+    }
+}
+
+export const updateCard= async(req:Request,res:Response)=>{
+        try{
+                const updatedCard= await stripe.customers.updateSource(
+                    req.body.customer_id,
+                    req.body.card_id,
+                    {name:req.body.updated_Name}
+                    );
+                    res.status(200).send(updatedCard);
+        }catch(error){
+            res.status(500).send(error);
+        }
+    }
+
+export const deleteCard =async(req:Request,res:Response)=>{
+        try {
+                const deletedCard= await stripe.customers.deleteSource(
+                    req.body.customer_id,
+                    req.body.card_id
+                );
+                res.status(200).send(deletedCard);
+            } catch (error) {
+                res.status(500).send(error);
+            }
+    }
+
+export const getBalance = async(req:Request,res:Response)=>{
+            try {
+                const balance = await stripe.balance.retrieve();
+                res.status(200).send(balance);
+            } catch (error:any) {
+                res.status(400).send({success:false,msg:error.message});
+            }
+    }
+
+ export   const createPaymentIntent= async (req:Request,res:Response)=>{
+        try {
+            const createdIntent= await stripe.paymentIntents.create({
+                amount:req.body.amount,
+                currency:req.body.currency,
+                automatic_payment_methods: {enabled: true},
+        });
+        res.status(200).send(createdIntent);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    }
