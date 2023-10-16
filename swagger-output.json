@@ -244,20 +244,38 @@
               "properties": {
                 "customer_id": {
                   "example": "any"
-                },
-                "card_Name": {
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/payment/charges": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
                   "example": "any"
                 },
-                "card_ExpYear": {
+                "amount": {
                   "example": "any"
                 },
-                "card_ExpMonth": {
-                  "example": "any"
-                },
-                "card_Number": {
-                  "example": "any"
-                },
-                "card_CVC": {
+                "customer_id": {
                   "example": "any"
                 }
               }
