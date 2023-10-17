@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import Stripe from "stripe";
 import { config } from "dotenv";
-// import { Request, Response } from 'aws-sdk';
 config();
 const secretKey=process.env.STRIPE_SECRET_KEY as string;
-export const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
+const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 export const createCustomer = async (req:Request, res:Response)=>{
     try{
@@ -47,14 +46,15 @@ export const createCharges= async (req:Request, res:Response)=>{
     }     
 }
 
-export const listScourse = async( req:Request,res:Response)=>{
+export const listSources = async( req:Request,res:Response)=>{
     try {
+        // const customer_id=req.query.customer_id;
         const cards= await stripe.customers.listSources(
-             req.body.customer_id
+            req.query.customer_id as string
            );
           res.status(200).send(cards);
     } catch (error) {
-        res.status(500).send('Somthing went worng!');
+        res.status(404).send('Somthing went worng!');
     }
 }
 
