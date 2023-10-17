@@ -6,13 +6,8 @@ import Token from "../models/tokens.model";
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-
-
 const router = express.Router();
-// const sec=process.env.SECRET_KEY;
-
 const renSecretKey = process.env.SECRET_KEY as string;
-
 
 router.post('/signup', async (req: Request, res: Response) => {
     try {
@@ -97,7 +92,6 @@ router.post("/signin", async (req:Request,res:Response)=>{
                 _id:_id,
                 username:username,
             }
-
             let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
             if(password===enteredPassword){
                 const existingToken = await Token.findOne({_id});

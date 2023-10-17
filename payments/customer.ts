@@ -20,7 +20,6 @@ export const createCustomer = async (req:Request, res:Response)=>{
 
 export const addNewCard = async(req:Request,res:Response)=>{
     try {
-     
         const card = await stripe.customers.createSource(
             req.body.customer_id,
             {source: 'tok_mastercard'}
@@ -92,15 +91,4 @@ export const getBalance = async(req:Request,res:Response)=>{
             }
     }
 
- export   const createPaymentIntent= async (req:Request,res:Response)=>{
-        try {
-            const createdIntent= await stripe.paymentIntents.create({
-                amount:req.body.amount,
-                currency:req.body.currency,
-                automatic_payment_methods: {enabled: true},
-        });
-        res.status(200).send(createdIntent);
-        } catch (error) {
-            res.status(500).send(error);
-        }
-    }
+ 
