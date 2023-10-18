@@ -6,6 +6,8 @@ const secretKey=process.env.STRIPE_SECRET_KEY as string;
 const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 export const createSession= async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Sessions']
+
     try {
         const createdSession= await stripe.billingPortal.sessions.create({
             customer: req.body.customer_id,
@@ -19,6 +21,8 @@ export const createSession= async (req:Request,res:Response)=>{
 }
 
 export const checkoutSession =async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Sessions']
+
     try {
         const checkoutDetails= await stripe.checkout.sessions.create({
             success_url:'https://henceforthsolutions.com/',

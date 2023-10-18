@@ -6,6 +6,7 @@ const secretKey=process.env.STRIPE_SECRET_KEY as string;
 const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 export const createCustomer = async (req:Request, res:Response)=>{
+// #swagger.tags = ['Stripe Integration']
     try{
         const customer = await  stripe.customers.create({
             name:req.body.name,
@@ -19,6 +20,8 @@ export const createCustomer = async (req:Request, res:Response)=>{
 }
 
 export const addNewCard = async(req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Card Payment']
+
     try {
         const card = await stripe.customers.createSource(
             req.body.customer_id,
@@ -31,6 +34,8 @@ export const addNewCard = async(req:Request,res:Response)=>{
 }
 
 export const createCharges= async (req:Request, res:Response)=>{
+// #swagger.tags = ['Stripe Card Payment']
+
     try {
         const createdCharges= await stripe.charges.create({
             receipt_email:req.body.email,
@@ -46,6 +51,8 @@ export const createCharges= async (req:Request, res:Response)=>{
 }
 
 export const listSources = async( req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Card Payment']
+
     try {
         // const customer_id=req.query.customer_id;
         const cards= await stripe.customers.listSources(
@@ -58,6 +65,8 @@ export const listSources = async( req:Request,res:Response)=>{
 }
 
 export const updateCard= async(req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Card Payment']
+
         try{
                 const updatedCard= await stripe.customers.updateSource(
                     req.body.customer_id,
@@ -71,6 +80,8 @@ export const updateCard= async(req:Request,res:Response)=>{
     }
 
 export const deleteCard =async(req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Card Payment']
+
         try {
                 const deletedCard= await stripe.customers.deleteSource(
                     req.body.customer_id,
@@ -83,6 +94,7 @@ export const deleteCard =async(req:Request,res:Response)=>{
     }
 
 export const getBalance = async(req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Integration']
             try {
                 const balance = await stripe.balance.retrieve();
                 res.status(200).send(balance);

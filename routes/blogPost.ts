@@ -7,6 +7,8 @@ import Token from '../models/tokens.model';
 const router=express.Router();
 
 router.post("/blog", async (req:Request, res:Response)=>{
+// #swagger.tags = ['Blog Posting']
+
     try{
             const { username,blogtitle,blog } = req.body;
             

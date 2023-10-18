@@ -73,7 +73,6 @@ router.get('/searchProduct',searchProduct);
 
 
 //Price
-
 router.post('/createPrice',createPrice)
 
 //SESSION 

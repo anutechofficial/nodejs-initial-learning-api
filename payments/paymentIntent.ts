@@ -7,6 +7,8 @@ const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 
 export   const createPaymentIntent= async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Intent']
+
     try {
         const createdIntent= await stripe.paymentIntents.create({
             amount:req.body.amount,
@@ -24,6 +26,7 @@ export   const createPaymentIntent= async (req:Request,res:Response)=>{
 }
 
 export const retrievePaymentIntent= async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Intent']
     try {
         const paymentIntent = await stripe.paymentIntents.retrieve(
             req.query.paymentIntentId as string
@@ -36,6 +39,8 @@ export const retrievePaymentIntent= async (req:Request,res:Response)=>{
 }
 
 export const capturePaymentIntent= async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Intent']
+
     try {
         const paymentIntent = await stripe.paymentIntents.capture(
             req.query.paymentIntentId as string
@@ -48,6 +53,8 @@ export const capturePaymentIntent= async (req:Request,res:Response)=>{
 }
 
 export const updatePaymentIntent=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Intent']
+
     try {
         const updatedPaymentIntent= await stripe.paymentIntents.update(
             req.body.paymentIntentId,
@@ -61,6 +68,8 @@ export const updatePaymentIntent=async (req:Request,res:Response)=>{
 
 
 export const confirmPaymentIntent=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Payment Intent']
+
     try {
         const intentPaymentDetails= await stripe.paymentIntents.confirm(
             req.body.paymentIntentId,

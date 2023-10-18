@@ -19,6 +19,8 @@ const upload = multer({ storage });
 
 // Define the POST route for file upload
 router.post('/file', upload.single('file'), async (req: Request, res: Response) => {
+// #swagger.tags = ['File Upload']
+
     try {
         const file: Express.Multer.File | undefined = req.file;
         // console.log(file);

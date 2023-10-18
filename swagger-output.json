@@ -13,6 +13,9 @@
   "paths": {
     "/auth/signup": {
       "post": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -46,6 +49,9 @@
     },
     "/auth/signout": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -69,6 +75,9 @@
     },
     "/auth/signin": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
         "parameters": [
           {
@@ -100,6 +109,9 @@
     },
     "/post/blog": {
       "post": {
+        "tags": [
+          "Blog Posting"
+        ],
         "description": "",
         "parameters": [
           {
@@ -136,6 +148,9 @@
     },
     "/upload/file": {
       "post": {
+        "tags": [
+          "File Upload"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -152,6 +167,9 @@
     },
     "/message/chats": {
       "get": {
+        "tags": [
+          "Socket.io"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -162,6 +180,9 @@
     },
     "/payment/createCustomer": {
       "post": {
+        "tags": [
+          "Stripe Integration"
+        ],
         "description": "",
         "parameters": [
           {
@@ -192,6 +213,9 @@
     },
     "/payment/addCard": {
       "post": {
+        "tags": [
+          "Stripe Card Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -222,6 +246,9 @@
     },
     "/payment/charges": {
       "post": {
+        "tags": [
+          "Stripe Card Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -255,6 +282,9 @@
     },
     "/payment/fetchPaymentSources": {
       "get": {
+        "tags": [
+          "Stripe Card Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -275,6 +305,9 @@
     },
     "/payment/updateCard": {
       "put": {
+        "tags": [
+          "Stripe Card Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -308,6 +341,9 @@
     },
     "/payment/deleteCard": {
       "delete": {
+        "tags": [
+          "Stripe Card Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -338,6 +374,9 @@
     },
     "/payment/getBalance": {
       "get": {
+        "tags": [
+          "Stripe Integration"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -351,6 +390,9 @@
     },
     "/payment/addBank": {
       "post": {
+        "tags": [
+          "Stripe Bank Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -396,6 +438,9 @@
     },
     "/payment/retrieveBank": {
       "get": {
+        "tags": [
+          "Stripe Bank Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -421,6 +466,9 @@
     },
     "/payment/updateBank": {
       "put": {
+        "tags": [
+          "Stripe Bank Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -454,6 +502,9 @@
     },
     "/payment/verifyBank": {
       "get": {
+        "tags": [
+          "Stripe Bank Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -479,6 +530,9 @@
     },
     "/payment/deleteBank": {
       "delete": {
+        "tags": [
+          "Stripe Bank Payment"
+        ],
         "description": "",
         "parameters": [
           {
@@ -509,6 +563,9 @@
     },
     "/payment/createPaymentIntent": {
       "post": {
+        "tags": [
+          "Stripe Payment Intent"
+        ],
         "description": "",
         "parameters": [
           {
@@ -545,6 +602,9 @@
     },
     "/payment/retrievePaymentIntent": {
       "get": {
+        "tags": [
+          "Stripe Payment Intent"
+        ],
         "description": "",
         "parameters": [
           {
@@ -565,6 +625,9 @@
     },
     "/payment/updateIntent": {
       "put": {
+        "tags": [
+          "Stripe Payment Intent"
+        ],
         "description": "",
         "parameters": [
           {
@@ -595,6 +658,9 @@
     },
     "/payment/confirmPayment": {
       "post": {
+        "tags": [
+          "Stripe Payment Intent"
+        ],
         "description": "",
         "parameters": [
           {
@@ -622,6 +688,9 @@
     },
     "/payment/capturePaymentIntent": {
       "get": {
+        "tags": [
+          "Stripe Payment Intent"
+        ],
         "description": "",
         "parameters": [
           {
@@ -642,6 +711,9 @@
     },
     "/payment/addProduct": {
       "post": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -678,6 +750,9 @@
     },
     "/payment/retrieveProduct": {
       "get": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -698,6 +773,9 @@
     },
     "/payment/updateProduct": {
       "put": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -734,6 +812,9 @@
     },
     "/payment/productsList": {
       "get": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -754,6 +835,9 @@
     },
     "/payment/deleteProduct": {
       "delete": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -774,6 +858,9 @@
     },
     "/payment/searchProduct": {
       "get": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -794,6 +881,9 @@
     },
     "/payment/createPrice": {
       "post": {
+        "tags": [
+          "Stripe Product Catalog"
+        ],
         "description": "",
         "parameters": [
           {
@@ -824,6 +914,9 @@
     },
     "/payment/session": {
       "post": {
+        "tags": [
+          "Stripe Payment Sessions"
+        ],
         "description": "",
         "parameters": [
           {
@@ -851,6 +944,9 @@
     },
     "/payment/checkout": {
       "post": {
+        "tags": [
+          "Stripe Payment Sessions"
+        ],
         "description": "",
         "parameters": [
           {

@@ -7,6 +7,8 @@ const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 
 export const createProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const addedProduct= await stripe.products.create({
             name:req.body.product_name,
@@ -23,6 +25,8 @@ export const createProduct=async (req:Request,res:Response)=>{
 
 
 export const retrieveProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const retrieveProduct= await stripe.products.retrieve(
             req.query.product_id as string
@@ -34,6 +38,8 @@ export const retrieveProduct=async (req:Request,res:Response)=>{
 }
 
 export const updateProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const updatedProduct= await stripe.products.update(
             req.body.product_id,
@@ -49,6 +55,8 @@ export const updateProduct=async (req:Request,res:Response)=>{
 
 
 export const listProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const Products= await stripe.products.list({
             limit:req.query.numberOfProduct as any,
@@ -61,6 +69,8 @@ export const listProduct=async (req:Request,res:Response)=>{
 
 
 export const deleteProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const deletedProducts= await stripe.products.del(
            req.query.product_id as string
@@ -72,6 +82,8 @@ export const deleteProduct=async (req:Request,res:Response)=>{
 }
 
 export const searchProduct=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         // const inTransit=req.query.isActive;
         const product_number=req.query.product_number;
@@ -85,6 +97,8 @@ export const searchProduct=async (req:Request,res:Response)=>{
 }
 
 export const createPrice =async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Product Catalog']
+
     try {
         const price= await stripe.prices.create({
             unit_amount:parseInt(req.body.unit_amount)*100,

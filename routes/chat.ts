@@ -18,6 +18,8 @@ let user1 :string;
 
 let user2 :string;
 app.get('/chats', (req,res)=>{
+// #swagger.tags = ['Socket.io']
+
     res.sendFile(__dirname+"/index.html")
     
 });

@@ -10,6 +10,7 @@ const router = express.Router();
 const renSecretKey = process.env.SECRET_KEY as string;
 
 router.post('/signup', async (req: Request, res: Response) => {
+// #swagger.tags = ['Users']
     try {
         const { username, password, } = req.body;
 
@@ -51,6 +52,8 @@ router.post('/signup', async (req: Request, res: Response) => {
 });
 
 router.get("/signout", async (req:Request,res:Response)=>{
+// #swagger.tags = ['Users']
+
     try{
         const { username } = req.query;
         
@@ -81,6 +84,8 @@ router.get("/signout", async (req:Request,res:Response)=>{
 });
 
 router.get("/signin", async (req:Request,res:Response)=>{
+// #swagger.tags = ['Users']
+
     try{
         const { username, password } = req.query;
         let enteredPassword=password;

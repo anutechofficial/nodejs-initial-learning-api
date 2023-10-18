@@ -6,6 +6,8 @@ const secretKey=process.env.STRIPE_SECRET_KEY as string;
 const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
 
 export const addBank= async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Bank Payment']
+
     try {
         const token = await stripe.tokens.create({
             bank_account: {
@@ -28,6 +30,8 @@ export const addBank= async (req:Request,res:Response)=>{
 }
 
 export const retrieveBank = async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Bank Payment']
+
     try {
         const bankAccount = await stripe.customers.retrieveSource(
             req.query.customer_id as string,
@@ -40,6 +44,8 @@ export const retrieveBank = async (req:Request,res:Response)=>{
 }
 
 export const updateBank=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Bank Payment']
+
     try {
         const updatedBank= await stripe.customers.updateSource(
             req.body.customerId,
@@ -53,6 +59,8 @@ export const updateBank=async (req:Request,res:Response)=>{
 }
 
 export const verifyAccount=async (req:Request,res:Response)=>{
+// #swagger.tags = ['Stripe Bank Payment']
+
     try {
         const verifiedAccount = await stripe.customers.verifySource(
             req.query.customer_id as string,
@@ -66,6 +74,8 @@ export const verifyAccount=async (req:Request,res:Response)=>{
 }
 
 export const deleteBank=async (req:Request,res:Response) => {
+// #swagger.tags = ['Stripe Bank Payment']
+
     try {
         const deletedBank= await stripe.customers.deleteSource(
             req.body.customer_id,
