@@ -50,9 +50,9 @@ router.post('/signup', async (req: Request, res: Response) => {
     }
 });
 
-router.post("/signout", async (req:Request,res:Response)=>{
+router.get("/signout", async (req:Request,res:Response)=>{
     try{
-        const { username } = req.body;
+        const { username } = req.query;
         
         // console.log("Entered password ",enteredPassword);
         const existingUser = await User.findOne({ username });
@@ -80,9 +80,9 @@ router.post("/signout", async (req:Request,res:Response)=>{
     }
 });
 
-router.post("/signin", async (req:Request,res:Response)=>{
+router.get("/signin", async (req:Request,res:Response)=>{
     try{
-        const { username, password } = req.body;
+        const { username, password } = req.query;
         let enteredPassword=password;
         
         const existingUser = await User.findOne({ username });

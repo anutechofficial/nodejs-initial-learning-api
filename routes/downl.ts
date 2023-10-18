@@ -14,13 +14,13 @@ const S3Bucket = new aws.S3({
 
 router.post("/download", async (req:Request,res:Response)=>{
     try{
-        const { username,blogtitle,blog } = req.body;
+        // const { username,blogtitle,blog } = req.body;
 
 
 
          const params:aws.S3.GetObjectRequest = {
             Bucket: process.env.BUCKET_NAME as string,
-            Key: username,
+            Key:'dwqedw',
          };
 
         const fileStream = S3Bucket.getObject(params).createReadStream();

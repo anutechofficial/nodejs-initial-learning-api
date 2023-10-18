@@ -45,20 +45,13 @@
       }
     },
     "/auth/signout": {
-      "post": {
+      "get": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "username",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -75,23 +68,18 @@
       }
     },
     "/auth/signin": {
-      "post": {
+      "get": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "username",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -156,36 +144,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/file/download": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "example": "any"
-                },
-                "blogtitle": {
-                  "example": "any"
-                },
-                "blog": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
           "500": {
             "description": "Internal Server Error"
           }
