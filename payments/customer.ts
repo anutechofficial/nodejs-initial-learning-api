@@ -22,7 +22,7 @@ export const addNewCard = async(req:Request,res:Response)=>{
     try {
         const card = await stripe.customers.createSource(
             req.body.customer_id,
-            {source: 'tok_mastercard'}
+            {source: req.body.card_source}
           );
         res.status(200).send({ card:card.id });
     } catch (error:any) {

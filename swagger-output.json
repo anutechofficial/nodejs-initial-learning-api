@@ -244,6 +244,9 @@
               "properties": {
                 "customer_id": {
                   "example": "any"
+                },
+                "card_source": {
+                  "example": "any"
                 }
               }
             }
