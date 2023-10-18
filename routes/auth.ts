@@ -12,7 +12,7 @@ const renSecretKey = process.env.SECRET_KEY as string;
 router.post('/signup', async (req: Request, res: Response) => {
 // #swagger.tags = ['Users']
     try {
-        const { username, password, } = req.body;
+        const { username, password, email } = req.body;
 
         // Check if the username already exists
         const existingUser = await User.findOne({ username });
@@ -25,7 +25,7 @@ router.post('/signup', async (req: Request, res: Response) => {
         }
 
         // Create a new user
-        let user: any = await User.create({ username, password });
+        let user: any = await User.create({ username, password,email });
         let { _id,  } = user
         console.log("_ID",_id);
         // Save the user to MongoDB
@@ -39,12 +39,8 @@ router.post('/signup', async (req: Request, res: Response) => {
         let token = jwt.sign(payload, renSecretKey, { expiresIn: '365d' });
        
         let userToken = await Token.create({ _id, username, token, });
-        let userDetails={
-            username:userToken.username,
-            token:userToken.token,
-        }
         
-        res.status(201).json({ message: 'User registered successfully',userDetails});
+        res.status(201).json({ message: 'User registered successfully', generatedToken: userToken.token});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });

@@ -29,6 +29,9 @@
                 },
                 "password": {
                   "example": "any"
+                },
+                "email": {
+                  "example": "any"
                 }
               }
             }
