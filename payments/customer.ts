@@ -35,7 +35,7 @@ export const createCharges= async (req:Request, res:Response)=>{
         const createdCharges= await stripe.charges.create({
             receipt_email:req.body.email,
             amount:parseInt(req.body.amount)*100,
-            currency:'USD',
+            currency:'usd',
             // card:req.body.card_id,
             customer: req.body.customer_id,
         });

@@ -12,10 +12,10 @@ export   const createPaymentIntent= async (req:Request,res:Response)=>{
             amount:req.body.amount,
             currency:req.body.currency,
             automatic_payment_methods: {enabled: true},
-            confirm:true,
+            // confirm:true,
             customer:req.body.customer_id,
             payment_method:req.body.payment_method_id,
-            return_url:'https://www.google.com/',
+            // return_url:'https://www.google.com/',
     });
     res.status(200).send(createdIntent);
     } catch (error) {

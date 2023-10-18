@@ -23,6 +23,19 @@ import {
     confirmPaymentIntent
 } from "../payments/paymentIntent";
 
+import { createProduct,
+        retrieveProduct,
+        updateProduct,
+        listProduct,
+        deleteProduct,
+        searchProduct,
+        createPrice
+} from "../payments/products";
+
+import { createSession,
+    checkoutSession,
+} from "../payments/session";
+
 import  express from "express";
 
 const router=express.Router();
@@ -49,6 +62,24 @@ router.get('/retrievePaymentIntent', retrievePaymentIntent);
 router.put('/updateIntent', updatePaymentIntent);
 router.post('/confirmPayment',confirmPaymentIntent);
 router.get('/capturePaymentIntent', capturePaymentIntent);
+
+//Product Controller
+router.post('/addProduct', createProduct);
+router.get('/retrieveProduct',retrieveProduct);
+router.put('/updateProduct',updateProduct);
+router.get('/productsList',listProduct);
+router.delete('/deleteProduct',deleteProduct);
+router.get('/searchProduct',searchProduct);
+
+
+//Price
+
+router.post('/createPrice',createPrice)
+
+//SESSION 
+router.post('/session', createSession);
+router.post('/checkout',checkoutSession);
+
 
 
 
