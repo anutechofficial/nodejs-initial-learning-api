@@ -6,13 +6,20 @@ import Token from "../models/tokens.model";
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+//Stripe 
+import Stripe from "stripe";
+import { config } from "dotenv";
+config();
+const secretKey=process.env.STRIPE_SECRET_KEY as string;
+const stripe=new Stripe(secretKey, {apiVersion:'2023-08-16'});
+
 const router = express.Router();
 const renSecretKey = process.env.SECRET_KEY as string;
 
 router.post('/signup', async (req: Request, res: Response) => {
 // #swagger.tags = ['Users']
     try {
-        const { username, password, email } = req.body;
+        const { name, username, password, email } = req.body;
 
         // Check if the username already exists
         const existingUser = await User.findOne({ username });
@@ -25,7 +32,9 @@ router.post('/signup', async (req: Request, res: Response) => {
         }
 
         // Create a new user
-        let user: any = await User.create({ username, password,email });
+        const stripeUser=await stripe.customers.create({name:name, email:email});
+        const stripeUser_id= stripeUser.id;
+        let user: any = await User.create({ username, password,email,stripeUser_id });
         let { _id,  } = user
         console.log("_ID",_id);
         // Save the user to MongoDB
