@@ -8,7 +8,9 @@ const router=express.Router();
 
 router.post("/blog", async (req:Request, res:Response)=>{
 // #swagger.tags = ['Blog Posting']
-
+/* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     try{
             const { username,blogtitle,blog } = req.body;
             

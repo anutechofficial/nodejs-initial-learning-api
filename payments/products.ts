@@ -45,6 +45,8 @@ export const updateProduct=async (req:Request,res:Response)=>{
             req.body.product_id,
             {metadata:{product_number:req.body.product_number},
             images:[req.body.imageURL],
+            description:req.body.description,
+            
             default_price:req.body.price_id},
         )
         res.status(200).send(updatedProduct);
@@ -100,8 +102,9 @@ export const createPrice =async (req:Request,res:Response)=>{
 // #swagger.tags = ['Stripe Product Catalog']
 
     try {
+        const amount=req.body.unit_amount;
         const price= await stripe.prices.create({
-            unit_amount:parseInt(req.body.unit_amount)*100,
+            unit_amount_decimal:`${amount*100}`,
             currency:req.body.currency,
             product:req.body.product_id,
             billing_scheme:'per_unit',

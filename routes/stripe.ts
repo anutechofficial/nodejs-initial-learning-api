@@ -36,6 +36,10 @@ import { createSession,
     checkoutSession,
 } from "../payments/session";
 
+import { createPlan,
+    createSubscription,
+} from "../payments/subscription";
+
 import  express from "express";
 
 const router=express.Router();
@@ -74,6 +78,10 @@ router.get('/searchProduct',searchProduct);
 
 //Price
 router.post('/createPrice',createPrice)
+
+//SUBSCRIPTION
+router.post('/createPlans', createPlan);
+router.post('/createSubstription', createSubscription);
 
 //SESSION 
 router.post('/session', createSession);

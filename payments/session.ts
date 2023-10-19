@@ -29,7 +29,7 @@ export const checkoutSession =async (req:Request,res:Response)=>{
             line_items:[ 
                 {price:req.body.priceId, 
                 quantity:req.body.numberOfItem}],
-            mode:'payment',
+            mode:req.body.payment_mode,
             customer:req.body.customer_id,
             cancel_url:'https://henceforthsolutions.com/',
         })

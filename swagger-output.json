@@ -146,7 +146,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/upload/file": {
@@ -796,6 +801,9 @@
                 "imageURL": {
                   "example": "any"
                 },
+                "description": {
+                  "example": "any"
+                },
                 "price_id": {
                   "example": "any"
                 }
@@ -915,6 +923,78 @@
         }
       }
     },
+    "/payment/createPlans": {
+      "post": {
+        "tags": [
+          "SUBSCRIPTION"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currency": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "interval": {
+                  "example": "any"
+                },
+                "product_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/payment/createSubstription": {
+      "post": {
+        "tags": [
+          "SUBSCRIPTION"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customer_id": {
+                  "example": "any"
+                },
+                "plan_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/payment/session": {
       "post": {
         "tags": [
@@ -962,6 +1042,9 @@
                   "example": "any"
                 },
                 "numberOfItem": {
+                  "example": "any"
+                },
+                "payment_mode": {
                   "example": "any"
                 },
                 "customer_id": {

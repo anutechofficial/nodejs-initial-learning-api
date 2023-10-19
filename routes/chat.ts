@@ -21,7 +21,6 @@ app.get('/chats', (req,res)=>{
 // #swagger.tags = ['Socket.io']
 
     res.sendFile(__dirname+"/index.html")
-    
 });
 
 io.on('connection', async (socket) => {
