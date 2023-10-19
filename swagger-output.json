@@ -1050,6 +1050,9 @@
                 "payment_mode": {
                   "example": "any"
                 },
+                "payment_method_types": {
+                  "example": "any"
+                },
                 "customer_id": {
                   "example": "any"
                 }

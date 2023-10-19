@@ -30,6 +30,7 @@ export const checkoutSession =async (req:Request,res:Response)=>{
                 {price:req.body.priceId, 
                 quantity:req.body.numberOfItem}],
             mode:req.body.payment_mode,
+            payment_method_types:[req.body.payment_method_types],
             customer:req.body.customer_id,
             cancel_url:'https://henceforthsolutions.com/',
         })
