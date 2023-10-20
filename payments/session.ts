@@ -24,13 +24,17 @@ export const checkoutSession =async (req:Request,res:Response)=>{
 // #swagger.tags = ['Stripe Payment Sessions']
 
     try {
+        const product_id=req.body.product_id;
+        const retrieveProduct= await stripe.products.retrieve(product_id);
+        const productPrice= retrieveProduct.default_price;
         const checkoutDetails= await stripe.checkout.sessions.create({
             success_url:'https://henceforthsolutions.com/',
             line_items:[ 
-                {price:req.body.priceId, 
-                quantity:req.body.numberOfItem}],
-            mode:req.body.payment_mode,
-            payment_method_types:[req.body.payment_method_types],
+                {price:req.body.priceId || productPrice, 
+                quantity:req.body.numberOfItem || 1}],
+            //Pass subscription if the Checkout Session includes at least one recurring item(Plans)
+            mode:req.body.mode || 'payment',
+            payment_method_types:[req.body.payment_method_types], //Required in setup mode 
             customer:req.body.customer_id,
             cancel_url:'https://henceforthsolutions.com/',
         })

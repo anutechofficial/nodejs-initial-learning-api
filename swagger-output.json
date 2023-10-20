@@ -1041,13 +1041,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "product_id": {
+                  "example": "any"
+                },
                 "priceId": {
                   "example": "any"
                 },
                 "numberOfItem": {
                   "example": "any"
                 },
-                "payment_mode": {
+                "mode": {
                   "example": "any"
                 },
                 "payment_method_types": {
