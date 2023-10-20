@@ -25,18 +25,21 @@ export const checkoutSession =async (req:Request,res:Response)=>{
 // #swagger.tags = ['Stripe Payment Sessions']
 
     try {
+        //User can checkout by there username
         const getUsername=req.body.username as string;
         const userData= await userModel.findOne({username:getUsername});
         const {stripeUser_id}=userData as any;
+        //Checkout by stripe productId
         const product_id=req.body.product_id;
         const retrieveProduct= await stripe.products.retrieve(product_id);
-        const productPrice= retrieveProduct.default_price;
+        const productPriceId= retrieveProduct.default_price;
+        //Checkout stripe code 
         const checkoutDetails= await stripe.checkout.sessions.create({
             success_url:'https://henceforthsolutions.com/',
             line_items:[ 
-                {price:req.body.priceId || productPrice, 
+                {price:req.body.priceId || productPriceId, 
                 quantity:req.body.numberOfItem || 1}],
-            //Pass subscription if the Checkout Session includes at least one recurring item(Plans)
+            //Pass subscription if the Checkout Session includes at least one recurring item (Plans)
             mode:req.body.mode || 'payment',
             payment_method_types:[req.body.payment_method_types], //Required in setup mode 
             customer:req.body.customer_id || stripeUser_id,
