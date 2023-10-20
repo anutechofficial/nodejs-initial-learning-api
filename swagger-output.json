@@ -1041,6 +1041,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "username": {
+                  "example": "any"
+                },
                 "product_id": {
                   "example": "any"
                 },
