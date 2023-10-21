@@ -37,7 +37,7 @@ export const checkoutSession =async (req:Request,res:Response)=>{
         const checkoutDetails= await stripe.checkout.sessions.create({
             success_url:'https://henceforthsolutions.com/',
             line_items:[ 
-                {price:req.body.priceId || productPriceId, 
+                {price:productPriceId as string,
                 quantity:req.body.numberOfItem || 1}],
             //Pass subscription if the Checkout Session includes at least one recurring item (Plans)
             mode:req.body.mode || 'payment',
