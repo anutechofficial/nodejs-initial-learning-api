@@ -10,7 +10,7 @@ import Chat from "./routes/chat";
 import payment from './routes/stripe';
 // import msg from "./routes/chat";
 // import multer from 'multer';
-
+//Some changes for git configuration
 
 const app = express();
 const port = process.env.PORT;
