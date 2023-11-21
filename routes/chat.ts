@@ -1,15 +1,17 @@
 import express from 'express';
-const app=express();
-const router =express.Router();
 import http from 'http';
-const server =http.createServer(app);
 import {Server} from "socket.io";
-const io=new Server(server);
 import jwt from "jsonwebtoken";
 import Tokens from '../models/tokens.model';
 import chatListModel from '../models/chatList.model';
 import chatsModel from '../models/chats.model';
 require('dotenv').config();
+
+
+const app=express();
+const router =express.Router();
+const server =http.createServer(app);
+const io=new Server(server);
 
 
 const port =process.env.SOCKET_PORT;
