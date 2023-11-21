@@ -19,11 +19,11 @@ const secretKey=process.env.SECRET_KEY as string;
 let user1 :string;
 
 let user2 :string;
-app.get('/chats', (req,res)=>{
-// #swagger.tags = ['Socket.io']
+// app.get('/chats', (req,res)=>{
+// // #swagger.tags = ['Socket.io']
 
-    res.sendFile(__dirname+"/index.html")
-});
+//     res.sendFile(__dirname+"/index.html")
+// });
 
 io.on('connection', async (socket) => {
   try{
